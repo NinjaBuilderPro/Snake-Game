@@ -8,7 +8,7 @@ Track your progress with the project by updating the checkmarks down below
 ## Set up
 - [x] Read this readme
 - [x] Fork this project into your own Github project
-- [x] Confirm that your website is auto-deployed to [https://Ninjabuilderpro.github.io/Snake-Game/game](https://Ninjabuiderpro.github.io/snake-game/game) 
+- [x] Confirm that your website is auto-deployed to [https://Ninjabuilderpro.github.io/Snake-Game/game](https://ninjabuilderpro.github.io/Snake-Game/game) 
   - [x] Make sure to update the `{username}` texts on the line above to your github username
 - [x] Make sure the following are installed (Two of these will already be installed on computer sets up for robotics)
   - [x] Git: [Install](https://git-scm.com/downloads)
