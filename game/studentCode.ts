@@ -21,13 +21,18 @@ export class BoardHelper implements IBoardHelper {
         return 500;
     }
 
+    getRandomInt(min: number, max: number) {
+        min = Math.ceil(min);
+        max = Math.ceil(max);
+        return Math.floor(Math.random() * (max - min) + min);
+    }
     /**
      * Create a new apple cell item, which will be displayed on the board
      * @param freeCells the cells that are currently not occupied
      * @returns the new cell item
      */
     createApple(freeCells: Coordinate[]): CellItem {
-        return new CellItem(new Coordinate(0, 0), 'red');
+        return new CellItem(freeCells[this.getRandomInt(0, freeCells.length - 1)], 'red');
     }
 
     /**
@@ -36,6 +41,20 @@ export class BoardHelper implements IBoardHelper {
      * @returns the associated direction, or null if not an accepted key code
      */
     getDirection(keyBoardEvent: KeyboardEvent): Direction | null {
+        switch(keyBoardEvent.code) {
+            case "KeyW":
+                console.log("w");
+                break;
+            case "KeyA":
+                console.log("a");
+                break;
+            case "KeyS":
+                console.log("s");
+                break;
+            case "KeyD":
+                console.log("d");
+                break;
+        }
         return null;
     }
 }
