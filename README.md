@@ -25,15 +25,15 @@ Track your progress with the project by updating the checkmarks down below
 - [x] getGridSize - they can change it from 5 to 10, to see how it changes
 - [x] getBoardSpeedMs - we can explain it, but we will need to go back to it after the snake is moving
 - [x] createApple - change from going to the first cell to a random cell
-- [ ] getDirection - explain how switch statements work and enums (for the Direction enum)
+- [x] getDirection - explain how switch statements work and enums (for the Direction enum)
 
 ## Snake
 
 **All these changes can be made in `./game/studentCode.ts`**
 
-- [ ] Handle moving the snake head from the direction passed in
-- [ ] Detect collision with a wall
-- [ ] Detect collision with an apple
+- [x] Handle moving the snake head from the direction passed in
+- [x] Detect collision with a wall
+- [x] Detect collision with an apple
 - [ ] Handle consuming an apple
 - [ ] Add default body parts
 - [ ] Handle updating the snake body when the head moves

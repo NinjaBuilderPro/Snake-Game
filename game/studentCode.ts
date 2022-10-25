@@ -1,3 +1,4 @@
+import { Dir } from "fs";
 import CellItem from "./cellItem";
 import Collision from "./collistion";
 import Coordinate from "./coordinate";
@@ -43,25 +44,21 @@ export class BoardHelper implements IBoardHelper {
     getDirection(keyBoardEvent: KeyboardEvent): Direction | null {
         switch(keyBoardEvent.code) {
             case "KeyW":
-                console.log("w");
-                break;
+                return Direction.UP;
             case "KeyA":
-                console.log("a");
-                break;
+                return Direction.LEFT;
             case "KeyS":
-                console.log("s");
-                break;
+                return Direction.DOWN;
             case "KeyD":
-                console.log("d");
-                break;
+                return Direction.RIGHT;
         }
         return null;
     }
 }
 
 export class Snake implements ISnake {
-    protected snakeHead = new CellItem(new Coordinate(5, 5), 'blue');
-    protected snakeBody: CellItem[] = [];
+    protected snakeHead = new CellItem(new Coordinate(5, 5), 'yellow');
+    protected snakeBody: CellItem[] = [new CellItem(new Coordinate(4, 5), 'blue')];
 
     /**
      * @returns the Snake Head Cell Item
@@ -89,7 +86,33 @@ export class Snake implements ISnake {
      * @param direction the diection to move the snake in
      */
     update(direction: Direction): void {
+            let tempFrontCoord = Object.assign({}, this.getSnakeHead().coordinate);
+            let tempBackCoord = Object.assign({}, this.snakeBody[0].coordinate);
+            switch(direction) {
+                case Direction.UP:
+                    this.snakeHead.coordinate.y++;
+                    break;
+                case Direction.DOWN:
+                    this.snakeHead.coordinate.y--;
+                    break;
+                case Direction.LEFT:
+                    this.snakeHead.coordinate.x--;
+                    break;
+                case Direction.RIGHT:
+                    this.snakeHead.coordinate.x++;
+                    break;
+            }
 
+            for(let i = 0; i < this.getSnakeBodyParts().length; i++) {
+                tempBackCoord.x = this.snakeBody[i].coordinate.x
+                tempBackCoord.y = this.snakeBody[i].coordinate.y
+
+                this.snakeBody[i].coordinate.x = tempFrontCoord.x;
+                this.snakeBody[i].coordinate.y = tempFrontCoord.y;
+
+                tempFrontCoord.x = tempBackCoord.x;
+                tempFrontCoord.y = tempBackCoord.y;
+            }
     }
 
     /**
@@ -99,6 +122,13 @@ export class Snake implements ISnake {
      * @returns the collision type or null if no collision
      */
     detectCollision(gridSize: number, appleLocation: Coordinate): Collision | null {
+        if(this.snakeHead.coordinate.x == appleLocation.x && this.snakeHead.coordinate.y == appleLocation.y) {
+            return Collision.APPLE
+        }
+        let snakeCollideWithWall = this.snakeHead.coordinate.x >= gridSize || this.snakeHead.coordinate.x < 0 || this.snakeHead.coordinate.y < 0 || this.snakeHead.coordinate.y >= gridSize;
+        if(snakeCollideWithWall) {
+            return Collision.WALL
+        }
         return null;
     }
 
@@ -106,7 +136,19 @@ export class Snake implements ISnake {
      * Handles the consumption of an apple, which should add a new body part
      */
     consumeApple(): void {
-        
+        let last = this.snakeBody[this.snakeBody.length - 1];
+        let nextToLast = this.snakeHead
+        if(this.snakeBody.length > 1) {
+            nextToLast = this.snakeBody[this.snakeBody.length - 2];
+        }
+
+        let xDiff = last.coordinate.x - nextToLast.coordinate.x;
+        let yDiff = last.coordinate.y - nextToLast.coordinate.y;
+
+        let newX = last.coordinate.x + xDiff
+        let newY = last.coordinate.y + yDiff
+
+        this.snakeBody.push(new CellItem(new Coordinate(newX, newY), 'blue'));
     }
 
 }
