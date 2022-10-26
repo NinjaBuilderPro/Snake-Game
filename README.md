@@ -34,10 +34,10 @@ Track your progress with the project by updating the checkmarks down below
 - [x] Handle moving the snake head from the direction passed in
 - [x] Detect collision with a wall
 - [x] Detect collision with an apple
-- [ ] Handle consuming an apple
-- [ ] Add default body parts
-- [ ] Handle updating the snake body when the head moves
-- [ ] Detect collisions with the body
+- [x] Handle consuming an apple
+- [x] Add default body parts
+- [x] Handle updating the snake body when the head moves
+- [x] Detect collisions with the body
 
 # Next.js Documentation
 

@@ -1,4 +1,6 @@
+import { create } from "domain";
 import { Dir } from "fs";
+import { Cell } from "./cell";
 import CellItem from "./cellItem";
 import Collision from "./collistion";
 import Coordinate from "./coordinate";
@@ -58,8 +60,10 @@ export class BoardHelper implements IBoardHelper {
 
 export class Snake implements ISnake {
     protected snakeHead = new CellItem(new Coordinate(5, 5), 'yellow');
-    protected snakeBody: CellItem[] = [new CellItem(new Coordinate(4, 5), 'blue')];
-
+    protected snakeBody: CellItem[] = this.createBody(4, 5);
+    createBody(x: number, y: number): CellItem[] {
+        return [new CellItem(new Coordinate(x, y), 'blue'), new CellItem(new Coordinate(x - 1, y), 'blue')]
+    }
     /**
      * @returns the Snake Head Cell Item
      */
@@ -128,6 +132,11 @@ export class Snake implements ISnake {
         let snakeCollideWithWall = this.snakeHead.coordinate.x >= gridSize || this.snakeHead.coordinate.x < 0 || this.snakeHead.coordinate.y < 0 || this.snakeHead.coordinate.y >= gridSize;
         if(snakeCollideWithWall) {
             return Collision.WALL
+        }
+        for(let i = 0; i < this.getSnakeBodyParts().length; i++) {
+            if(this.snakeHead.coordinate.x == this.snakeBody[i].coordinate.x && this.snakeHead.coordinate.y == this.snakeBody[i].coordinate.y){
+                return Collision.SNAKE
+            }
         }
         return null;
     }
