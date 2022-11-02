@@ -46,12 +46,16 @@ export class BoardHelper implements IBoardHelper {
     getDirection(keyBoardEvent: KeyboardEvent): Direction | null {
         switch(keyBoardEvent.code) {
             case "KeyW":
+            case "ArrowUp":
                 return Direction.UP;
             case "KeyA":
+            case "ArrowLeft":
                 return Direction.LEFT;
             case "KeyS":
+            case "ArrowDown":
                 return Direction.DOWN;
             case "KeyD":
+            case "ArrowRight":
                 return Direction.RIGHT;
         }
         return null;
