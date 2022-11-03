@@ -62,6 +62,7 @@ export class BoardHelper implements IBoardHelper {
     }
 }
 
+
 export class Snake implements ISnake {
     protected extendSnake = false;
     protected snakeHead = new CellItem(new Coordinate(5, 5), 'yellow');
@@ -160,4 +161,15 @@ export class Snake implements ISnake {
         this.extendSnake = true;
     }
 
+    /**
+     * Allows a quick method to update the snake part given the current index in the snake
+     * @param snakePart the snake body part or head
+     * @param indexInSnake the index into the snake body, as returned by `getAllSnakeParts`
+     * @returns the background to set as the cell item's background (color or url)
+     */
+    updateSnakePartBackground(snakePart: CellItem, indexInSnake: number, lastDirection: Direction): string {
+        return snakePart.background;
+    }
+
 }
+

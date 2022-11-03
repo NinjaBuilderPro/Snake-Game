@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { CSSProperties, FunctionComponent, useState } from "react";
 import CellItem from "./cellItem";
 import styles from '../styles/Board.module.css';
 import Coordinate from "./coordinate";
@@ -20,8 +20,15 @@ export class Cell {
         this.onChange();
     }
 
-    getItemBackgroundColor() {
-        return this.item?.backgroundColor ?? '';
+    getItemBackground(): CSSProperties {
+        const bg = this.item?.background;
+        if (!this.item || !bg) {
+            return {};
+        }
+        if (this.item.isBackgroundAColor()) {
+            return {backgroundColor: bg};
+        }
+        return {backgroundImage: `url(${bg})`};
     }
 
     onChange = () => {};
@@ -32,15 +39,15 @@ export type CellProps = {
 }
 
 export const CellComponent: FunctionComponent<CellProps> = (props) =>  {
-    const [bgColor, setBgColor] = useState(props.cell.getItemBackgroundColor());
+    const [background, setBackground] = useState(props.cell.getItemBackground());
 
     props.cell.onChange = () => {
-        setBgColor(props.cell.getItemBackgroundColor());
+        setBackground(props.cell.getItemBackground());
     }
 
     const onClick = () => {
         console.log(props.cell);
     };
 
-    return <div className={styles.square} onClick={onClick} style={{backgroundColor: bgColor}}></div>
+    return <div className={styles.square} onClick={onClick} style={background}></div>
 }

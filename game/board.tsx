@@ -31,7 +31,7 @@ class BoardManager {
 
     constructor() {
         gridIterator(coordinate => this.cells.set(coordinate.getCoordinateKey(), new Cell(coordinate)));
-        this.updateCells(false);
+        this.updateCells(this.direction, false);
         this.apple = this.createApple(); //Just getting around initialization error
     }
 
@@ -57,7 +57,7 @@ class BoardManager {
         switch (collision) {
             case Collision.APPLE:
                 this.snake.consumeApple();
-                this.updateCells(false);
+                this.updateCells(this.direction, false);
                 this.createApple();
                 break;
             case Collision.WALL:
@@ -65,11 +65,12 @@ class BoardManager {
             case Collision.SNAKE:
                 return 'Your snaked slithered into itself';
         }
-        this.updateCells();
+        this.updateCells(this.direction);
         return null;
     }
 
-    updateCells(includeApple = true) {
+    updateCells(direction: Direction, includeApple = true) {
+        this.snake.getAllSnakeParts().forEach((item, index) => item.background = this.snake.updateSnakePartBackground(item, index, direction));
         this.snake.getAllSnakeParts().concat(includeApple ? [this.apple] : []).forEach(item => {
             const cell = this.getCell(item.coordinate);
             cell.setItem(item);

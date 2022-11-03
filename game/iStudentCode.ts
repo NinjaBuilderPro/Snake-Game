@@ -22,4 +22,5 @@ export interface ISnake {
     update(direction: Direction): void;
     detectCollision(gridSize: number, appleLocation: Coordinate): Collision | null;
     consumeApple(): void;
+    updateSnakePartBackground(snakePart: CellItem, indexInSnake: number, lastDirection: Direction): string;
 }
