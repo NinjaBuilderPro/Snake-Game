@@ -66,7 +66,9 @@ export class Snake implements ISnake {
     protected snakeHead = new CellItem(new Coordinate(5, 5), 'yellow');
     protected snakeBody: CellItem[] = this.createBody(4, 5);
     createBody(x: number, y: number): CellItem[] {
-        return [new CellItem(new Coordinate(x, y), 'blue'), new CellItem(new Coordinate(x - 1, y), 'blue')]
+        let randomColorHex1 = Math.floor(Math.random()*16777215).toString(16);
+        let randomColorHex2 = Math.floor(Math.random()*16777215).toString(16);
+        return [new CellItem(new Coordinate(x, y), "#" + randomColorHex1), new CellItem(new Coordinate(x - 1, y), "#" + randomColorHex2)]
     }
     /**
      * @returns the Snake Head Cell Item
@@ -149,6 +151,8 @@ export class Snake implements ISnake {
      * Handles the consumption of an apple, which should add a new body part
      */
     consumeApple(): void {
+        let randomColorHex = Math.floor(Math.random()*16777215).toString(16);
+
         let last = this.snakeBody[this.snakeBody.length - 1];
         let nextToLast = this.snakeHead
         if(this.snakeBody.length > 1) {
@@ -161,7 +165,8 @@ export class Snake implements ISnake {
         let newX = last.coordinate.x + xDiff
         let newY = last.coordinate.y + yDiff
 
-        this.snakeBody.push(new CellItem(new Coordinate(newX, newY), 'blue'));
+        console.log(randomColorHex)
+        this.snakeBody.push(new CellItem(new Coordinate(newX, newY), "#" + randomColorHex));
     }
 
 }
