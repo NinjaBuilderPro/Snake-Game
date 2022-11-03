@@ -12,22 +12,6 @@
   align-items: center;
 }
 
-.board {
-  --grid-size: 4;
-  /* Start with 4x4 */
-  display: grid;
-  width: 25rem;
-  height: 25rem;
-  grid-template: repeat(var(--grid-size), 1fr) / repeat(var(--grid-size), 1fr);
-}
-
-.square {
-  border: 1px solid grey;
-  display: grid;
-  place-items: center;
-  font-size: 40px;
-}
-
 .my-button {
   padding: 1rem;
   position: absolute;

@@ -70,7 +70,7 @@ export class Snake implements ISnake {
     createBody(x: number, y: number): CellItem[] {
         let randomColorHex1 = Math.floor(Math.random()*16777215).toString(16);
         let randomColorHex2 = Math.floor(Math.random()*16777215).toString(16);
-        return [new CellItem(new Coordinate(x, y), "#" + randomColorHex1), new CellItem(new Coordinate(x - 1, y), "#" + randomColorHex2)]
+        return [new CellItem(new Coordinate(x, y), 'green'), new CellItem(new Coordinate(x - 1, y), 'green')]
     }
     /**
      * @returns the Snake Head Cell Item
@@ -127,7 +127,7 @@ export class Snake implements ISnake {
             }
             if(this.extendSnake){
             let randomColorHex = Math.floor(Math.random()*16777215).toString(16);
-            this.snakeBody.push(new CellItem(new Coordinate(tempBackCoord.x, tempBackCoord.y), "#" + randomColorHex));
+            this.snakeBody.push(new CellItem(new Coordinate(tempBackCoord.x, tempBackCoord.y), 'green'));
             this.extendSnake = false
             }
     }
@@ -168,6 +168,7 @@ export class Snake implements ISnake {
      * @returns the background to set as the cell item's background (color or url)
      */
     updateSnakePartBackground(snakePart: CellItem, indexInSnake: number, lastDirection: Direction): string {
+        console.log(snakePart.background);
         return snakePart.background;
     }
 
