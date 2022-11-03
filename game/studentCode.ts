@@ -35,7 +35,7 @@ export class BoardHelper implements IBoardHelper {
      * @returns the new cell item
      */
     createApple(freeCells: Coordinate[]): CellItem {
-        return new CellItem(freeCells[this.getRandomInt(0, freeCells.length - 1)], 'red');
+        return new CellItem(freeCells[this.getRandomInt(0, freeCells.length - 1)], './game-assets/apple.png');
     }
 
     /**

@@ -51,7 +51,7 @@ Track your progress with the project by updating the checkmarks down below
 - [x] Add default body parts
 - [x] Handle updating the snake body when the head moves
 - [x] Detect collisions with the body
-- [ ] Update background for the apple to `./game-assets/apple.png`
+- [x] Update background for the apple to `./game-assets/apple.png`
 - [ ] Update image parts for the snake
 
 # Next.js Documentation
