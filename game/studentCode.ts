@@ -63,6 +63,7 @@ export class BoardHelper implements IBoardHelper {
 }
 
 export class Snake implements ISnake {
+    protected extendSnake = false;
     protected snakeHead = new CellItem(new Coordinate(5, 5), 'yellow');
     protected snakeBody: CellItem[] = this.createBody(4, 5);
     createBody(x: number, y: number): CellItem[] {
@@ -123,6 +124,11 @@ export class Snake implements ISnake {
                 tempFrontCoord.x = tempBackCoord.x;
                 tempFrontCoord.y = tempBackCoord.y;
             }
+            if(this.extendSnake){
+            let randomColorHex = Math.floor(Math.random()*16777215).toString(16);
+            this.snakeBody.push(new CellItem(new Coordinate(tempBackCoord.x, tempBackCoord.y), "#" + randomColorHex));
+            this.extendSnake = false
+            }
     }
 
     /**
@@ -151,22 +157,7 @@ export class Snake implements ISnake {
      * Handles the consumption of an apple, which should add a new body part
      */
     consumeApple(): void {
-        let randomColorHex = Math.floor(Math.random()*16777215).toString(16);
-
-        let last = this.snakeBody[this.snakeBody.length - 1];
-        let nextToLast = this.snakeHead
-        if(this.snakeBody.length > 1) {
-            nextToLast = this.snakeBody[this.snakeBody.length - 2];
-        }
-
-        let xDiff = last.coordinate.x - nextToLast.coordinate.x;
-        let yDiff = last.coordinate.y - nextToLast.coordinate.y;
-
-        let newX = last.coordinate.x + xDiff
-        let newY = last.coordinate.y + yDiff
-
-        console.log(randomColorHex)
-        this.snakeBody.push(new CellItem(new Coordinate(newX, newY), "#" + randomColorHex));
+        this.extendSnake = true;
     }
 
 }
